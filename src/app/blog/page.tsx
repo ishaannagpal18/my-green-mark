@@ -1,5 +1,7 @@
 ﻿import type { Metadata } from 'next'
 import Link from 'next/link'
+import Scroll3DReveal from '@/components/Scroll3DReveal'
+import TiltCard from '@/components/TiltCard'
 
 export const metadata: Metadata = {
   title: 'Blog — My Green Mark',
@@ -30,7 +32,7 @@ const posts = [
   {
     slug: 'sustainability-challenge-2026-guide',
     category: 'Events',
-    title: 'Global Sustainability Challenge 2026: Everything Students Need to Know',
+    title: 'Green Talent Hunt 2026: Everything Students Need to Know',
     excerpt: 'June 5, 2026 — the biggest sustainability competition for Indian school students. Registration process, exam format, prizes, and preparation tips.',
     date: 'April 10, 2025',
     readTime: '5 min read',
@@ -88,7 +90,7 @@ export default function BlogPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap gap-2">
             {categories.map((cat) => (
-              <button key={cat} className={`text-sm font-medium px-4 py-2 rounded-full transition-colors ${cat === 'All' ? 'bg-[#14532D] text-white' : 'bg-[#D6E8D2] text-[#14532D] hover:bg-[#14532D] hover:text-white'}`}>
+              <button key={cat} className={`text-sm font-medium px-4 py-2 rounded-full transition-colors ${cat === 'All' ? 'bg-[#06402B] text-white' : 'bg-[#D6E8D2] text-[#06402B] hover:bg-[#06402B] hover:text-white'}`}>
                 {cat}
               </button>
             ))}
@@ -100,45 +102,51 @@ export default function BlogPage() {
       <section className="py-16 bg-[#F7EDE2]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
-            {posts.map((post) => (
-              <Link key={post.slug} href={`/blog/${post.slug}`} className="service-card overflow-hidden group block">
-                <div className="h-44 bg-gradient-to-br from-[#14532D] to-[#14532D] relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center opacity-10 text-[120px]">🌿</div>
-                  <div className="absolute top-4 left-4 flex gap-2">
-                    <span className="bg-[#F4B942] text-[#14532D] text-xs font-bold px-3 py-1 rounded-full">{post.category}</span>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-bold text-[#14532D] text-base leading-snug mb-3 group-hover:text-[#14532D] transition-colors">{post.title}</h3>
-                  <p className="text-[#3A8A5C] text-sm leading-relaxed mb-4 line-clamp-3">{post.excerpt}</p>
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {post.tags.map((tag) => (
-                      <span key={tag} className="bg-[#D6E8D2] text-[#14532D] text-xs px-2 py-1 rounded-full">{tag}</span>
-                    ))}
-                  </div>
-                  <div className="flex items-center justify-between text-xs text-[#3A8A5C] pt-4 border-t border-[#D6E8D2]">
-                    <span>By {post.author}</span>
-                    <div className="flex items-center gap-3">
-                      <span>{post.date}</span>
-                      <span>· {post.readTime}</span>
+            {posts.map((post, i) => (
+              <Scroll3DReveal key={post.slug} direction="up" delay={i * 80}>
+                <TiltCard intensity={8} className="h-full">
+                  <Link href={`/blog/${post.slug}`} className="service-card overflow-hidden group block h-full">
+                    <div className="h-44 bg-gradient-to-br from-[#06402B] to-[#06402B] relative overflow-hidden">
+                      <div className="absolute inset-0 flex items-center justify-center opacity-10 text-[120px]">🌿</div>
+                      <div className="absolute top-4 left-4 flex gap-2">
+                        <span className="bg-[#F4B942] text-[#06402B] text-xs font-bold px-3 py-1 rounded-full">{post.category}</span>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </Link>
+                    <div className="p-6">
+                      <h3 className="font-bold text-[#06402B] text-base leading-snug mb-3 group-hover:text-[#06402B] transition-colors">{post.title}</h3>
+                      <p className="text-[#3A8A5C] text-sm leading-relaxed mb-4 line-clamp-3">{post.excerpt}</p>
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        {post.tags.map((tag) => (
+                          <span key={tag} className="bg-[#D6E8D2] text-[#06402B] text-xs px-2 py-1 rounded-full">{tag}</span>
+                        ))}
+                      </div>
+                      <div className="flex items-center justify-between text-xs text-[#3A8A5C] pt-4 border-t border-[#D6E8D2]">
+                        <span>By {post.author}</span>
+                        <div className="flex items-center gap-3">
+                          <span>{post.date}</span>
+                          <span>· {post.readTime}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </TiltCard>
+              </Scroll3DReveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* Newsletter */}
-      <section className="py-16 bg-[#14532D]">
+      <section className="py-16 bg-[#06402B]">
         <div className="max-w-2xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-extrabold text-white mb-3">Stay Updated</h2>
-          <p className="text-[#A8C5A3] mb-6">Get ESG insights, carbon market updates, and sustainability news delivered to your inbox every week.</p>
-          <div className="flex gap-3">
-            <input type="email" placeholder="Enter your email" className="flex-1 bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#F4B942] transition-colors"/>
-            <button className="btn-primary whitespace-nowrap text-sm">Subscribe</button>
-          </div>
+          <Scroll3DReveal direction="up">
+            <h2 className="text-2xl font-extrabold text-white mb-3">Stay Updated</h2>
+            <p className="text-[#A8C5A3] mb-6">Get ESG insights, carbon market updates, and sustainability news delivered to your inbox every week.</p>
+            <div className="flex gap-3">
+              <input type="email" placeholder="Enter your email" className="flex-1 bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#F4B942] transition-colors"/>
+              <button className="btn-primary whitespace-nowrap text-sm">Subscribe</button>
+            </div>
+          </Scroll3DReveal>
         </div>
       </section>
     </main>

@@ -102,7 +102,7 @@ export default function Navbar() {
                     }`}
                     style={{ background: 'rgba(255,255,255,0.98)', backdropFilter: 'blur(20px)' }}
                   >
-                    <div className="h-1 bg-gradient-to-r from-[#14532D] via-[#3A8A5C] to-[#F4B942]"></div>
+                    <div className="h-1 bg-gradient-to-r from-[#06402B] via-[#3A8A5C] to-[#F4B942]"></div>
                     {link.children.map((child, i) => (
                       <Link
                         key={child.href}
@@ -112,7 +112,7 @@ export default function Navbar() {
                       >
                         <span className="text-lg mt-0.5">{child.label.split(' ')[0]}</span>
                         <div>
-                          <div className="text-[#14532D] text-sm font-semibold group-hover/item:text-[#3A8A5C] transition-colors">
+                          <div className="text-[#06402B] text-sm font-semibold group-hover/item:text-[#3A8A5C] transition-colors">
                             {child.label.replace(/^[^ ]+ /, '')}
                           </div>
                           <div className="text-[#3A8A5C] text-xs">{child.desc}</div>

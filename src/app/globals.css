@@ -10,7 +10,7 @@
 :root {
   --background: #F7EDE2;
   --foreground: #1A1A1A;
-  --forest:       #14532D;  /* primary */
+  --forest:       #06402B;  /* primary */
   --forest-mid:   #3A8A5C;  /* hover / secondary green */
   --sienna:       #A67C52;  /* warm accent */
   --sage-light:   #D6E8D2;  /* pale tints / card bg */
@@ -38,7 +38,7 @@
 /* ─── SCROLLBAR ─── */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: #e8f5e9; }
-::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #14532D, #3A8A5C); border-radius: 10px; }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #06402B, #3A8A5C); border-radius: 10px; }
 
 /* ─── SCROLL PROGRESS BAR ─── */
 #scroll-progress {
@@ -46,7 +46,7 @@
   top: 0;
   left: 0;
   height: 3px;
-  background: linear-gradient(90deg, #14532D, #3A8A5C, #F4B942);
+  background: linear-gradient(90deg, #06402B, #3A8A5C, #F4B942);
   z-index: 9999;
   transform-origin: left;
   transition: width 0.1s linear;
@@ -54,7 +54,7 @@
 }
 
 /* ─── SELECTION ─── */
-::selection { background: #D6E8D2; color: #14532D; }
+::selection { background: #D6E8D2; color: #06402B; }
 
 /* ─── KEYFRAMES ─── */
 @keyframes float-up {
@@ -162,7 +162,7 @@
 
 /* ─── GRADIENT TEXT ─── */
 .text-gradient-forest {
-  background: linear-gradient(135deg, #14532D 0%, #3A8A5C 50%, #3A8A5C 100%);
+  background: linear-gradient(135deg, #06402B 0%, #3A8A5C 50%, #3A8A5C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -174,7 +174,7 @@
   background-clip: text;
 }
 .text-gradient-glow {
-  background: linear-gradient(135deg, #3A8A5C, #14532D, #F4B942);
+  background: linear-gradient(135deg, #3A8A5C, #06402B, #F4B942);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -189,7 +189,7 @@
     radial-gradient(ellipse at 10% 60%, rgba(20,83,45,0.5) 0%, transparent 55%),
     radial-gradient(ellipse at 90% 20%, rgba(58,138,92,0.4) 0%, transparent 50%),
     radial-gradient(ellipse at 50% 100%, rgba(20,83,45,0.6) 0%, transparent 60%),
-    #14532D;
+    #06402B;
 }
 
 .bg-forest-deep {
@@ -254,7 +254,7 @@
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #14532D, #3A8A5C, #F4B942);
+  background: linear-gradient(90deg, #06402B, #3A8A5C, #F4B942);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
@@ -265,7 +265,7 @@
 /* ─── BUTTONS ─── */
 .btn-glow {
   background: #F4B942;
-  color: #14532D;
+  color: #06402B;
   font-weight: 700;
   padding: 0.85rem 2rem;
   border-radius: 0.75rem;
@@ -323,7 +323,7 @@
 .btn-outline-white:hover { background: rgba(255,255,255,0.12); border-color: white; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
 
 .btn-forest-solid {
-  background: linear-gradient(135deg, #14532D, #14532D);
+  background: linear-gradient(135deg, #06402B, #06402B);
   color: white;
   font-weight: 600;
   padding: 0.85rem 2rem;
@@ -342,7 +342,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #14532D, #3A8A5C);
+  background: linear-gradient(135deg, #06402B, #3A8A5C);
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -352,7 +352,7 @@
 
 /* Keep old btn classes working — explicit copies so @apply isn't needed */
 .btn-primary {
-  background: #F4B942; color: #14532D; font-weight: 700;
+  background: #F4B942; color: #06402B; font-weight: 700;
   padding: 0.85rem 2rem; border-radius: 0.75rem; border: none;
   cursor: pointer; position: relative; overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
@@ -371,7 +371,7 @@
 .btn-secondary:hover { background: rgba(255,255,255,0.12); border-color: white; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
 
 .btn-forest {
-  background: linear-gradient(135deg, #14532D, #14532D); color: white;
+  background: linear-gradient(135deg, #06402B, #06402B); color: white;
   font-weight: 600; padding: 0.85rem 2rem; border-radius: 0.75rem; border: none;
   cursor: pointer; position: relative; overflow: hidden; transition: all 0.3s ease;
   display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;
@@ -382,7 +382,7 @@
 .impact-number {
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 900;
-  background: linear-gradient(135deg, #14532D 0%, #3A8A5C 60%, #3A8A5C 100%);
+  background: linear-gradient(135deg, #06402B 0%, #3A8A5C 60%, #3A8A5C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -396,7 +396,7 @@
   align-items: center;
   gap: 0.5rem;
   background: rgba(214,232,210,0.8);
-  color: #14532D;
+  color: #06402B;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -495,7 +495,7 @@
   content: '';
   position: absolute;
   inset: -1px;
-  background: linear-gradient(135deg, #14532D, #3A8A5C, #F4B942);
+  background: linear-gradient(135deg, #06402B, #3A8A5C, #F4B942);
   border-radius: inherit;
   z-index: -1;
   opacity: 0;
@@ -540,7 +540,7 @@
   border-radius: 12px;
   padding: 0.75rem 1rem;
   font-size: 0.875rem;
-  color: #14532D;
+  color: #06402B;
   background: white;
   width: 100%;
   transition: border-color 0.3s, box-shadow 0.3s;
@@ -553,7 +553,7 @@
 
 /* ─── TIMELINE ─── */
 .timeline-connector {
-  background: linear-gradient(180deg, #14532D 0%, #3A8A5C 50%, #D6E8D2 100%);
+  background: linear-gradient(180deg, #06402B 0%, #3A8A5C 50%, #D6E8D2 100%);
 }
 
 /* ─── SHEEN EFFECT ─── */
@@ -573,10 +573,10 @@
 .sheen:hover::after { left: 120%; }
 
 /* ─── TABLE ─── */
-.eco-table th { background: #F7EDE2; color: #14532D; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.875rem 1rem; }
+.eco-table th { background: #F7EDE2; color: #06402B; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.875rem 1rem; }
 .eco-table tr { transition: background 0.15s; }
 .eco-table tbody tr:hover { background: rgba(214,232,210,0.4); }
-.eco-table td { padding: 0.875rem 1rem; border-bottom: 1px solid rgba(214,232,210,0.6); font-size: 0.875rem; color: #14532D; }
+.eco-table td { padding: 0.875rem 1rem; border-bottom: 1px solid rgba(214,232,210,0.6); font-size: 0.875rem; color: #06402B; }
 
 /* ─── PROGRESS BAR ─── */
 .eco-progress {
@@ -588,7 +588,7 @@
 .eco-progress-fill {
   height: 100%;
   border-radius: 99px;
-  background: linear-gradient(90deg, #14532D, #3A8A5C);
+  background: linear-gradient(90deg, #06402B, #3A8A5C);
   position: relative;
   transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
 }
@@ -612,7 +612,7 @@
   font-weight: 600;
   letter-spacing: 0.03em;
 }
-.eco-badge-green { background: #D6E8D2; color: #14532D; }
+.eco-badge-green { background: #D6E8D2; color: #06402B; }
 .eco-badge-gold  { background: #FEF3C7; color: #92400E; }
 .eco-badge-red   { background: #FEE2E2; color: #991B1B; }
 
@@ -646,7 +646,7 @@
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #14532D, #3A8A5C, #F4B942);
+  background: linear-gradient(90deg, #06402B, #3A8A5C, #F4B942);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);

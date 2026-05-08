@@ -7,7 +7,7 @@ const LEAF_SVG = (color: string, opacity: number) => `
   </svg>
 `
 
-const LEAF_COLORS = ['#3A8A5C','#3A8A5C','#14532D','#A8C5A3','#D6E8D2','#D6E8D2','#14532D']
+const LEAF_COLORS = ['#3A8A5C','#3A8A5C','#06402B','#A8C5A3','#D6E8D2','#D6E8D2','#06402B']
 
 interface Particle {
   id: number

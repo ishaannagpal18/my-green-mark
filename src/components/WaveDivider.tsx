@@ -6,7 +6,7 @@
 }
 
 export default function WaveDivider({
-  from = '#14532D',
+  from = '#06402B',
   to = '#F7EDE2',
   flip = false,
   className = '',

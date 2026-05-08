@@ -1,5 +1,7 @@
 ﻿import type { Metadata } from 'next'
 import Link from 'next/link'
+import Scroll3DReveal from '@/components/Scroll3DReveal'
+import TiltCard from '@/components/TiltCard'
 
 export const metadata: Metadata = {
   title: 'Carbon Exchange — My Green Mark',
@@ -55,15 +57,19 @@ export default function CarbonExchangePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { value: '4,800', label: 'Carbon Credits Available', color: '#14532D' },
-              { value: '1,240', label: 'Registered Farmers', color: '#14532D' },
-              { value: '₹850–1,200', label: 'Price per tCO₂', color: '#14532D' },
-              { value: '50+', label: 'Corporate Buyers', color: '#14532D' },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center stats-card rounded-2xl p-6">
-                <div className="text-3xl font-extrabold mb-2" style={{ color: stat.color }}>{stat.value}</div>
-                <div className="text-[#3A8A5C] text-sm">{stat.label}</div>
-              </div>
+              { value: '4,800', label: 'Carbon Credits Available', color: '#06402B' },
+              { value: '1,240', label: 'Registered Farmers', color: '#06402B' },
+              { value: '₹850–1,200', label: 'Price per tCO₂', color: '#06402B' },
+              { value: '50+', label: 'Corporate Buyers', color: '#06402B' },
+            ].map((stat, i) => (
+              <Scroll3DReveal key={stat.label} direction="flip" delay={i * 80}>
+                <TiltCard intensity={8} className="h-full">
+                  <div className="text-center stats-card rounded-2xl p-6 h-full">
+                    <div className="text-3xl font-extrabold mb-2" style={{ color: stat.color }}>{stat.value}</div>
+                    <div className="text-[#3A8A5C] text-sm">{stat.label}</div>
+                  </div>
+                </TiltCard>
+              </Scroll3DReveal>
             ))}
           </div>
         </div>
@@ -73,24 +79,28 @@ export default function CarbonExchangePage() {
       <section className="py-20 bg-[#F7EDE2]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#14532D] mb-4">How It Works</h2>
+            <Scroll3DReveal direction="up">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#06402B] mb-4">How It Works</h2>
+            </Scroll3DReveal>
           </div>
           <div className="grid lg:grid-cols-2 gap-10">
             {/* Farmers flow */}
             <div id="farmers">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-[#14532D] rounded-2xl flex items-center justify-center text-2xl">👨‍🌾</div>
-                <h3 className="text-xl font-bold text-[#14532D]">For Farmers</h3>
+                <div className="w-12 h-12 bg-[#06402B] rounded-2xl flex items-center justify-center text-2xl">👨‍🌾</div>
+                <h3 className="text-xl font-bold text-[#06402B]">For Farmers</h3>
               </div>
               <div className="space-y-4">
-                {howItWorks.farmers.map((item) => (
-                  <div key={item.step} className="flex gap-4 items-start">
-                    <div className="w-8 h-8 bg-[#14532D] rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">{item.step}</div>
-                    <div>
-                      <div className="font-bold text-[#14532D] text-sm">{item.title}</div>
-                      <div className="text-[#3A8A5C] text-sm">{item.desc}</div>
+                {howItWorks.farmers.map((item, i) => (
+                  <Scroll3DReveal key={item.step} direction="left" delay={i * 80}>
+                    <div className="flex gap-4 items-start">
+                      <div className="w-8 h-8 bg-[#06402B] rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">{item.step}</div>
+                      <div>
+                        <div className="font-bold text-[#06402B] text-sm">{item.title}</div>
+                        <div className="text-[#3A8A5C] text-sm">{item.desc}</div>
+                      </div>
                     </div>
-                  </div>
+                  </Scroll3DReveal>
                 ))}
               </div>
               <Link href="/contact" className="btn-forest inline-flex mt-6 text-sm">Register as Farmer</Link>
@@ -99,18 +109,20 @@ export default function CarbonExchangePage() {
             {/* Companies flow */}
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-[#14532D] rounded-2xl flex items-center justify-center text-2xl">🏢</div>
-                <h3 className="text-xl font-bold text-[#14532D]">For Companies</h3>
+                <div className="w-12 h-12 bg-[#06402B] rounded-2xl flex items-center justify-center text-2xl">🏢</div>
+                <h3 className="text-xl font-bold text-[#06402B]">For Companies</h3>
               </div>
               <div className="space-y-4">
-                {howItWorks.companies.map((item) => (
-                  <div key={item.step} className="flex gap-4 items-start">
-                    <div className="w-8 h-8 bg-[#14532D] rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">{item.step}</div>
-                    <div>
-                      <div className="font-bold text-[#14532D] text-sm">{item.title}</div>
-                      <div className="text-[#3A8A5C] text-sm">{item.desc}</div>
+                {howItWorks.companies.map((item, i) => (
+                  <Scroll3DReveal key={item.step} direction="right" delay={i * 80}>
+                    <div className="flex gap-4 items-start">
+                      <div className="w-8 h-8 bg-[#06402B] rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">{item.step}</div>
+                      <div>
+                        <div className="font-bold text-[#06402B] text-sm">{item.title}</div>
+                        <div className="text-[#3A8A5C] text-sm">{item.desc}</div>
+                      </div>
                     </div>
-                  </div>
+                  </Scroll3DReveal>
                 ))}
               </div>
               <Link href="/contact" className="btn-primary inline-flex mt-6 text-sm">Corporate Registration</Link>
@@ -124,17 +136,17 @@ export default function CarbonExchangePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-10 flex-wrap gap-4">
             <div>
-              <span className="inline-block bg-[#D6E8D2] text-[#14532D] text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider mb-3">Live Listings</span>
-              <h2 className="text-3xl font-extrabold text-[#14532D]">Available Carbon Credits</h2>
+              <span className="inline-block bg-[#D6E8D2] text-[#06402B] text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider mb-3">Live Listings</span>
+              <h2 className="text-3xl font-extrabold text-[#06402B]">Available Carbon Credits</h2>
             </div>
             <div className="flex gap-3">
-              <select className="border border-[#D6E8D2] rounded-xl px-4 py-2.5 text-sm text-[#14532D] focus:outline-none focus:border-[#14532D]">
+              <select className="border border-[#D6E8D2] rounded-xl px-4 py-2.5 text-sm text-[#06402B] focus:outline-none focus:border-[#06402B]">
                 <option>All Types</option>
                 <option>Agroforestry</option>
                 <option>Mangrove</option>
                 <option>Social Forestry</option>
               </select>
-              <select className="border border-[#D6E8D2] rounded-xl px-4 py-2.5 text-sm text-[#14532D] focus:outline-none focus:border-[#14532D]">
+              <select className="border border-[#D6E8D2] rounded-xl px-4 py-2.5 text-sm text-[#06402B] focus:outline-none focus:border-[#06402B]">
                 <option>All States</option>
                 <option>Maharashtra</option>
                 <option>West Bengal</option>
@@ -148,7 +160,7 @@ export default function CarbonExchangePage() {
               <thead>
                 <tr className="bg-[#F7EDE2]">
                   {['ID', 'Type', 'Location', 'Farmer/Group', 'Credits (tCO₂)', 'Price', 'Status', 'Action'].map((h) => (
-                    <th key={h} className="text-left text-[#14532D] text-xs font-bold uppercase px-4 py-3 first:rounded-tl-xl last:rounded-tr-xl">{h}</th>
+                    <th key={h} className="text-left text-[#06402B] text-xs font-bold uppercase px-4 py-3 first:rounded-tl-xl last:rounded-tr-xl">{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -156,24 +168,24 @@ export default function CarbonExchangePage() {
                 {listings.map((listing) => (
                   <tr key={listing.id} className="hover:bg-[#F7EDE2] transition-colors">
                     <td className="px-4 py-4 text-[#F4B942] font-bold text-sm">{listing.id}</td>
-                    <td className="px-4 py-4 text-[#14532D] text-sm font-medium">{listing.type}</td>
+                    <td className="px-4 py-4 text-[#06402B] text-sm font-medium">{listing.type}</td>
                     <td className="px-4 py-4 text-[#3A8A5C] text-sm">{listing.location}</td>
-                    <td className="px-4 py-4 text-[#14532D] text-sm">{listing.farmer}</td>
+                    <td className="px-4 py-4 text-[#06402B] text-sm">{listing.farmer}</td>
                     <td className="px-4 py-4">
-                      <span className="font-bold text-[#14532D]">{listing.credits}</span>
+                      <span className="font-bold text-[#06402B]">{listing.credits}</span>
                       {listing.verified && <span className="ml-2 text-xs text-[#3A8A5C]">✓ Verified</span>}
                     </td>
-                    <td className="px-4 py-4 font-bold text-[#14532D] text-sm">{listing.price}</td>
+                    <td className="px-4 py-4 font-bold text-[#06402B] text-sm">{listing.price}</td>
                     <td className="px-4 py-4">
                       <span className={`text-xs px-2 py-1 rounded-full font-medium ${
-                        listing.status === 'Available' ? 'bg-[#D6E8D2] text-[#14532D]' :
+                        listing.status === 'Available' ? 'bg-[#D6E8D2] text-[#06402B]' :
                         listing.status === 'Sold Out' ? 'bg-red-100 text-red-700' :
                         'bg-[#FEF3C7] text-amber-700'
                       }`}>{listing.status}</span>
                     </td>
                     <td className="px-4 py-4">
                       {listing.status !== 'Sold Out' && (
-                        <Link href="/contact" className="text-xs bg-[#14532D] text-white px-3 py-1.5 rounded-lg hover:bg-[#14532D] transition-colors font-medium">Buy Credits</Link>
+                        <Link href="/contact" className="text-xs bg-[#06402B] text-white px-3 py-1.5 rounded-lg hover:bg-[#06402B] transition-colors font-medium">Buy Credits</Link>
                       )}
                     </td>
                   </tr>
@@ -185,7 +197,7 @@ export default function CarbonExchangePage() {
       </section>
 
       {/* Commission model */}
-      <section className="py-16 bg-[#14532D]">
+      <section className="py-16 bg-[#06402B]">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <h2 className="text-2xl font-extrabold text-white mb-4">Our Commission Model</h2>
           <p className="text-[#A8C5A3] text-lg mb-2">My Green Mark earns <span className="text-[#F4B942] font-bold">10–15% commission</span> on every carbon credit transaction</p>

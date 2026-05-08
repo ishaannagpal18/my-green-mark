@@ -1,5 +1,7 @@
 ﻿import type { Metadata } from 'next'
 import Link from 'next/link'
+import Scroll3DReveal from '@/components/Scroll3DReveal'
+import TiltCard from '@/components/TiltCard'
 
 export const metadata: Metadata = {
   title: 'Services — My Green Mark',
@@ -13,7 +15,7 @@ const services = [
     tagline: 'Sponsor · Track · Verify · Impact',
     href: '/plantation-tracker',
     icon: '🌱',
-    bgColor: '#14532D',
+    bgColor: '#06402B',
     revenue: '35%',
     description: 'GPS geo-tagged plantation plots with real-time tracking, monthly photo updates, digital certificates & comprehensive impact reports for corporates and individuals.',
     flow: ['Sponsor a plot', 'GPS tracking begins', 'Monthly photo updates', 'Impact verification', 'Digital certificate'],
@@ -37,7 +39,7 @@ const services = [
     tagline: 'Farmers ↔ Companies',
     href: '/carbon-exchange',
     icon: '♻️',
-    bgColor: '#14532D',
+    bgColor: '#06402B',
     revenue: '25%',
     description: 'A transparent marketplace for verified carbon credit trading between smallholder farmers and corporates. My Green Mark aggregates, verifies, and facilitates every transaction.',
     flow: ['Farmer enrolls', 'Credits aggregated', 'Third-party verification', 'Listed on exchange', 'Corporate buys'],
@@ -85,9 +87,9 @@ const services = [
     tagline: 'Competitions · Workshops · Campaigns',
     href: '/awareness-programs',
     icon: '📣',
-    bgColor: '#14532D',
+    bgColor: '#06402B',
     revenue: '15%',
-    description: 'Sustainability awareness through gamified school competitions, corporate workshops, community campaigns — including the flagship Global Sustainability Challenge 2026.',
+    description: 'Sustainability awareness through gamified school competitions, corporate workshops, community campaigns — including the flagship Green Talent Hunt 2026.',
     flow: ['Registration', 'Workshops & training', 'Competition / campaign', 'Awards & certificates', 'Community badge'],
     features: [
       { icon: '🏆', title: 'School Competitions', desc: 'For classes 4–12 nationwide' },
@@ -98,7 +100,7 @@ const services = [
       { icon: '🎓', title: 'Digital Certificates', desc: 'Shareable participation proof' },
     ],
     pricing: [
-      { name: 'Student Registration', price: '₹200', desc: 'Global Sustainability Challenge' },
+      { name: 'Student Registration', price: '₹200', desc: 'Green Talent Hunt' },
       { name: 'School Program', price: '₹25K–75K', desc: 'Per school per year' },
       { name: 'Corporate Workshop', price: '₹50K–1.5L', desc: 'Half-day to full-day sessions' },
     ],
@@ -109,7 +111,7 @@ const services = [
     tagline: 'Monthly ESG · CSR · Reporting',
     href: '/contact',
     icon: '📋',
-    bgColor: '#14532D',
+    bgColor: '#06402B',
     revenue: '5%',
     description: 'Monthly retainer subscription plans for ongoing ESG execution — continuous plantation tracking, carbon footprint monitoring, and end-to-end CSR project management.',
     flow: ['Onboard', 'Set targets', 'Monthly monitoring', 'Reporting', 'Continuous improvement'],
@@ -147,12 +149,16 @@ export default function ServicesPage() {
       <section className="py-12 bg-white border-b border-[#D6E8D2]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
-            {services.map((s) => (
-              <div key={s.id} className="text-center p-4 rounded-xl" style={{ background: `${s.bgColor}15` }}>
-                <div className="text-3xl mb-2">{s.icon}</div>
-                <div className="text-2xl font-extrabold mb-1" style={{ color: s.bgColor }}>{s.revenue}</div>
-                <div className="text-[#14532D] text-xs font-semibold">{s.title.replace('Green Mark ', '')}</div>
-              </div>
+            {services.map((s, i) => (
+              <Scroll3DReveal key={s.id} direction="flip" delay={i * 80}>
+                <TiltCard intensity={8} className="h-full">
+                  <div className="text-center p-4 rounded-xl h-full" style={{ background: `${s.bgColor}15` }}>
+                    <div className="text-3xl mb-2">{s.icon}</div>
+                    <div className="text-2xl font-extrabold mb-1" style={{ color: s.bgColor }}>{s.revenue}</div>
+                    <div className="text-[#06402B] text-xs font-semibold">{s.title.replace('Green Mark ', '')}</div>
+                  </div>
+                </TiltCard>
+              </Scroll3DReveal>
             ))}
           </div>
         </div>
@@ -164,74 +170,84 @@ export default function ServicesPage() {
           {services.map((service, idx) => (
             <div key={service.id} className={`grid lg:grid-cols-2 gap-10 items-start ${idx % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
               {/* Info */}
-              <div>
-                <div className="flex items-center gap-4 mb-5">
-                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl text-white" style={{ background: service.bgColor }}>
-                    {service.icon}
+              <Scroll3DReveal direction={idx % 2 === 0 ? 'left' : 'right'} delay={0}>
+                <div>
+                  <div className="flex items-center gap-4 mb-5">
+                    <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl text-white" style={{ background: service.bgColor }}>
+                      {service.icon}
+                    </div>
+                    <div>
+                      <span className="text-[#3A8A5C] text-xs font-bold uppercase">Service {service.id}</span>
+                      <h2 className="text-2xl font-extrabold text-[#06402B]">{service.title}</h2>
+                    </div>
                   </div>
-                  <div>
-                    <span className="text-[#3A8A5C] text-xs font-bold uppercase">Service {service.id}</span>
-                    <h2 className="text-2xl font-extrabold text-[#14532D]">{service.title}</h2>
-                  </div>
-                </div>
-                <p className="text-[#14532D] text-base leading-relaxed mb-6">{service.description}</p>
+                  <p className="text-[#06402B] text-base leading-relaxed mb-6">{service.description}</p>
 
-                {/* Process flow */}
-                <div className="mb-6">
-                  <div className="text-[#14532D] text-sm font-semibold mb-3">How it works</div>
-                  <div className="flex flex-wrap items-center gap-2">
-                    {service.flow.map((step, i) => (
-                      <div key={step} className="flex items-center gap-2">
-                        <span className="bg-[#D6E8D2] text-[#14532D] text-xs font-medium px-3 py-1.5 rounded-full">{step}</span>
-                        {i < service.flow.length - 1 && <span className="text-[#A8C5A3] text-sm">→</span>}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Pricing */}
-                <div className="bg-white border border-[#D6E8D2] rounded-xl p-5">
-                  <div className="text-[#14532D] text-sm font-bold mb-3">Pricing</div>
-                  <div className="space-y-2">
-                    {service.pricing.map((plan) => (
-                      <div key={plan.name} className="flex items-center justify-between text-sm">
-                        <div>
-                          <span className="font-semibold text-[#14532D]">{plan.name}</span>
-                          <span className="text-[#3A8A5C] text-xs ml-2">{plan.desc}</span>
+                  {/* Process flow */}
+                  <div className="mb-6">
+                    <div className="text-[#06402B] text-sm font-semibold mb-3">How it works</div>
+                    <div className="flex flex-wrap items-center gap-2">
+                      {service.flow.map((step, i) => (
+                        <div key={step} className="flex items-center gap-2">
+                          <span className="bg-[#D6E8D2] text-[#06402B] text-xs font-medium px-3 py-1.5 rounded-full">{step}</span>
+                          {i < service.flow.length - 1 && <span className="text-[#A8C5A3] text-sm">→</span>}
                         </div>
-                        <span className="font-bold text-[#14532D]">{plan.price}</span>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                <Link href={service.href} className="btn-forest inline-flex mt-5 text-sm">Learn More →</Link>
-              </div>
+                  {/* Pricing */}
+                  <Scroll3DReveal direction="up" delay={100}>
+                    <div className="bg-white border border-[#D6E8D2] rounded-xl p-5">
+                      <div className="text-[#06402B] text-sm font-bold mb-3">Pricing</div>
+                      <div className="space-y-2">
+                        {service.pricing.map((plan) => (
+                          <div key={plan.name} className="flex items-center justify-between text-sm">
+                            <div>
+                              <span className="font-semibold text-[#06402B]">{plan.name}</span>
+                              <span className="text-[#3A8A5C] text-xs ml-2">{plan.desc}</span>
+                            </div>
+                            <span className="font-bold text-[#06402B]">{plan.price}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </Scroll3DReveal>
+
+                  <Link href={service.href} className="btn-forest inline-flex mt-5 text-sm">Learn More →</Link>
+                </div>
+              </Scroll3DReveal>
 
               {/* Features grid */}
-              <div className="grid grid-cols-2 gap-4">
-                {service.features.map((feat) => (
-                  <div key={feat.title} className="service-card p-5">
-                    <div className="text-2xl mb-2">{feat.icon}</div>
-                    <div className="font-semibold text-[#14532D] text-sm mb-1">{feat.title}</div>
-                    <div className="text-[#3A8A5C] text-xs">{feat.desc}</div>
-                  </div>
-                ))}
-              </div>
+              <Scroll3DReveal direction={idx % 2 === 0 ? 'right' : 'left'} delay={0}>
+                <div className="grid grid-cols-2 gap-4">
+                  {service.features.map((feat) => (
+                    <TiltCard key={feat.title} intensity={8} className="h-full">
+                      <div className="service-card p-5 h-full">
+                        <div className="text-2xl mb-2">{feat.icon}</div>
+                        <div className="font-semibold text-[#06402B] text-sm mb-1">{feat.title}</div>
+                        <div className="text-[#3A8A5C] text-xs">{feat.desc}</div>
+                      </div>
+                    </TiltCard>
+                  ))}
+                </div>
+              </Scroll3DReveal>
             </div>
           ))}
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-[#14532D]">
+      <section className="py-16 bg-[#06402B]">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-extrabold text-white mb-4">Ready to Start Your ESG Journey?</h2>
-          <p className="text-[#A8C5A3] text-lg mb-8">Choose the right service for your organisation — or combine them for maximum impact.</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="btn-primary justify-center">Book Free Consultation</Link>
-            <Link href="/impact-dashboard" className="btn-secondary justify-center">View Impact Dashboard</Link>
-          </div>
+          <Scroll3DReveal direction="up">
+            <h2 className="text-3xl font-extrabold text-white mb-4">Ready to Start Your ESG Journey?</h2>
+            <p className="text-[#A8C5A3] text-lg mb-8">Choose the right service for your organisation — or combine them for maximum impact.</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/contact" className="btn-primary justify-center">Book Free Consultation</Link>
+              <Link href="/impact-dashboard" className="btn-secondary justify-center">View Impact Dashboard</Link>
+            </div>
+          </Scroll3DReveal>
         </div>
       </section>
     </main>

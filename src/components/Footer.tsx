@@ -16,7 +16,7 @@ const footerLinks = {
     { label: 'Contact', href: '/contact' },
   ],
   Challenge: [
-    { label: 'Sustainability Challenge 2026', href: '/sustainability-challenge' },
+    { label: 'Green Talent Hunt 2026', href: '/sustainability-challenge' },
     { label: 'Register Now', href: '/sustainability-challenge#register' },
     { label: 'Prizes & Rewards', href: '/sustainability-challenge#rewards' },
     { label: 'For Schools', href: '/awareness-programs' },
@@ -40,7 +40,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#14532D] text-white">
+    <footer className="bg-[#06402B] text-white">
       {/* Main footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
@@ -49,7 +49,7 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-5">
               <div className="w-11 h-11 bg-[#F4B942] rounded-xl flex items-center justify-center">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2C8 2 4 5 4 10C4 14 7 17 11 18V22H13V18C17 17 20 14 20 10C20 5 16 2 12 2Z" fill="#14532D"/>
+                  <path d="M12 2C8 2 4 5 4 10C4 14 7 17 11 18V22H13V18C17 17 20 14 20 10C20 5 16 2 12 2Z" fill="#06402B"/>
                 </svg>
               </div>
               <div>
@@ -69,11 +69,25 @@ export default function Footer() {
                 { value: '1,240', label: 'Farmers Helped' },
                 { value: '312', label: 'ESG Reports' },
               ].map((stat) => (
-                <div key={stat.label} className="bg-[#14532D]/50 rounded-xl p-3">
+                <div key={stat.label} className="bg-[#06402B]/50 rounded-xl p-3">
                   <div className="text-[#F4B942] font-bold text-lg">{stat.value}</div>
                   <div className="text-[#A8C5A3] text-xs">{stat.label}</div>
                 </div>
               ))}
+            </div>
+
+            {/* Contact info */}
+            <div className="mb-5 space-y-2 text-sm">
+              <a href="tel:+919217917695" className="flex items-center gap-2 text-[#A8C5A3] hover:text-white transition-colors">
+                <span>📱</span> +91 92179 17695
+              </a>
+              <a href="mailto:info@mygreenmark.in" className="flex items-center gap-2 text-[#A8C5A3] hover:text-white transition-colors">
+                <span>📧</span> info@mygreenmark.in
+              </a>
+              <div className="flex items-start gap-2 text-[#A8C5A3]">
+                <span>📍</span>
+                <span>RZ-41/14, Block B, Sadh Nagar,<br/>Palam, New Delhi 110045</span>
+              </div>
             </div>
 
             {/* Social links */}
@@ -83,7 +97,7 @@ export default function Footer() {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  className="w-9 h-9 bg-[#14532D] hover:bg-[#F4B942] text-[#A8C5A3] hover:text-[#14532D] rounded-lg flex items-center justify-center transition-all duration-200"
+                  className="w-9 h-9 bg-[#06402B] hover:bg-[#F4B942] text-[#A8C5A3] hover:text-[#06402B] rounded-lg flex items-center justify-center transition-all duration-200"
                 >
                   {social.icon}
                 </a>
@@ -113,7 +127,7 @@ export default function Footer() {
         </div>
 
         {/* Newsletter */}
-        <div className="mt-12 pt-8 border-t border-[#14532D]">
+        <div className="mt-12 pt-8 border-t border-[#06402B]">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h4 className="font-bold text-base mb-1">Stay Updated on Sustainability</h4>
@@ -123,7 +137,7 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 md:w-64 bg-[#14532D] text-white placeholder-[#3A8A5C] text-sm px-4 py-3 rounded-xl border border-[#3A8A5C] focus:outline-none focus:border-[#F4B942] transition-colors"
+                className="flex-1 md:w-64 bg-[#06402B] text-white placeholder-[#3A8A5C] text-sm px-4 py-3 rounded-xl border border-[#3A8A5C] focus:outline-none focus:border-[#F4B942] transition-colors"
               />
               <button className="btn-primary whitespace-nowrap text-sm">Subscribe</button>
             </div>
@@ -134,7 +148,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="bg-[#0A2E18] py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#3A8A5C]">
-          <p>© 2025 My Green Mark. All rights reserved. Built for a greener India.</p>
+          <p>© 2026 My Green Mark. All rights reserved. Built for a greener India.</p>
           <div className="flex items-center gap-4">
             <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="#" className="hover:text-white transition-colors">Terms of Service</Link>

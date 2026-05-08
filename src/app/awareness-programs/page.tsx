@@ -1,5 +1,7 @@
 ﻿import type { Metadata } from 'next'
 import Link from 'next/link'
+import Scroll3DReveal from '@/components/Scroll3DReveal'
+import TiltCard from '@/components/TiltCard'
 
 export const metadata: Metadata = {
   title: 'Awareness Programs — My Green Mark',
@@ -14,6 +16,8 @@ const programs = [
   { icon: '🎓', title: 'Green Career Guidance', desc: 'Webinars and seminars for college students on green careers, ESG jobs, sustainability consulting, and climate tech opportunities.', audience: 'College Students', duration: '2–3 hours', certificate: true },
   { icon: '🌐', title: 'Online Learning Hub', desc: 'Self-paced sustainability modules, video lectures, quizzes, and digital badges — available 24/7 on the My Green Mark platform.', audience: 'Everyone', duration: 'Self-paced', certificate: true },
 ]
+
+const cardDirections = ['left', 'up', 'right', 'left', 'up', 'right'] as const
 
 export default function AwarenessProgramsPage() {
   return (
@@ -35,35 +39,41 @@ export default function AwarenessProgramsPage() {
       <section className="py-20 bg-[#F7EDE2]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#14532D] mb-4">Our Programs</h2>
-            <p className="text-[#14532D] text-lg max-w-2xl mx-auto">From school competitions to corporate workshops — we make sustainability education accessible and engaging for all.</p>
+            <Scroll3DReveal direction="up">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#06402B] mb-4">Our Programs</h2>
+              <p className="text-[#06402B] text-lg max-w-2xl mx-auto">From school competitions to corporate workshops — we make sustainability education accessible and engaging for all.</p>
+            </Scroll3DReveal>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
-            {programs.map((p) => (
-              <div key={p.title} className="service-card p-7">
-                <div className="text-3xl mb-4">{p.icon}</div>
-                <h3 className="font-bold text-[#14532D] text-lg mb-2">{p.title}</h3>
-                <p className="text-[#3A8A5C] text-sm leading-relaxed mb-4">{p.desc}</p>
-                <div className="space-y-2 text-xs">
-                  <div className="flex items-center gap-2 text-[#14532D]">
-                    <span className="w-1.5 h-1.5 bg-[#3A8A5C] rounded-full"></span>
-                    <span><strong>Audience:</strong> {p.audience}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-[#14532D]">
-                    <span className="w-1.5 h-1.5 bg-[#3A8A5C] rounded-full"></span>
-                    <span><strong>Duration:</strong> {p.duration}</span>
-                  </div>
-                  {p.certificate && (
-                    <div className="flex items-center gap-2 text-[#14532D]">
-                      <span className="w-1.5 h-1.5 bg-[#F4B942] rounded-full"></span>
-                      <span>Digital certificate included</span>
+            {programs.map((p, i) => (
+              <Scroll3DReveal key={p.title} direction={cardDirections[i]} delay={i * 80}>
+                <TiltCard intensity={8} className="h-full">
+                  <div className="service-card p-7 h-full">
+                    <div className="text-3xl mb-4">{p.icon}</div>
+                    <h3 className="font-bold text-[#06402B] text-lg mb-2">{p.title}</h3>
+                    <p className="text-[#3A8A5C] text-sm leading-relaxed mb-4">{p.desc}</p>
+                    <div className="space-y-2 text-xs">
+                      <div className="flex items-center gap-2 text-[#06402B]">
+                        <span className="w-1.5 h-1.5 bg-[#3A8A5C] rounded-full"></span>
+                        <span><strong>Audience:</strong> {p.audience}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-[#06402B]">
+                        <span className="w-1.5 h-1.5 bg-[#3A8A5C] rounded-full"></span>
+                        <span><strong>Duration:</strong> {p.duration}</span>
+                      </div>
+                      {p.certificate && (
+                        <div className="flex items-center gap-2 text-[#06402B]">
+                          <span className="w-1.5 h-1.5 bg-[#F4B942] rounded-full"></span>
+                          <span>Digital certificate included</span>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-                <Link href="/contact" className="inline-flex items-center gap-1 text-[#14532D] font-semibold text-sm mt-4 hover:text-[#3A8A5C] transition-colors">
-                  Enquire →
-                </Link>
-              </div>
+                    <Link href="/contact" className="inline-flex items-center gap-1 text-[#06402B] font-semibold text-sm mt-4 hover:text-[#3A8A5C] transition-colors">
+                      Enquire →
+                    </Link>
+                  </div>
+                </TiltCard>
+              </Scroll3DReveal>
             ))}
           </div>
         </div>
@@ -72,14 +82,16 @@ export default function AwarenessProgramsPage() {
       {/* Flagship challenge */}
       <section className="py-16 bg-[#F4B942]">
         <div className="max-w-5xl mx-auto px-4 text-center">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#14532D] mb-4">🏆 Global Sustainability Challenge 2026</h2>
-          <p className="text-[#14532D]/80 text-lg mb-8 max-w-2xl mx-auto">Our flagship annual event on World Environment Day — ₹50,000 prizes, GPS plot ownership, and Green Twin connections for students nationwide.</p>
-          <Link href="/sustainability-challenge" className="btn-forest inline-flex text-base">Register Now — ₹200</Link>
+          <Scroll3DReveal direction="scale">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#06402B] mb-4">🏆 Green Talent Hunt 2026</h2>
+            <p className="text-[#06402B]/80 text-lg mb-8 max-w-2xl mx-auto">Our flagship annual event on World Environment Day — ₹50,000 prizes, GPS plot ownership, and Green Twin connections for students nationwide.</p>
+            <Link href="/sustainability-challenge" className="btn-forest inline-flex text-base">Register Now — ₹200</Link>
+          </Scroll3DReveal>
         </div>
       </section>
 
       {/* Stats */}
-      <section className="py-16 bg-[#14532D]">
+      <section className="py-16 bg-[#06402B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
             {[
@@ -87,12 +99,14 @@ export default function AwarenessProgramsPage() {
               { value: '200+', label: 'Schools Partnered', icon: '🏫' },
               { value: '50+', label: 'Workshops Delivered', icon: '📚' },
               { value: '15+', label: 'Cities Covered', icon: '🌆' },
-            ].map((s) => (
-              <div key={s.label}>
-                <div className="text-3xl mb-2">{s.icon}</div>
-                <div className="text-3xl font-extrabold text-[#F4B942] mb-1">{s.value}</div>
-                <div className="text-[#A8C5A3] text-sm">{s.label}</div>
-              </div>
+            ].map((s, i) => (
+              <Scroll3DReveal key={s.label} direction="flip" delay={i * 80}>
+                <div>
+                  <div className="text-3xl mb-2">{s.icon}</div>
+                  <div className="text-3xl font-extrabold text-[#F4B942] mb-1">{s.value}</div>
+                  <div className="text-[#A8C5A3] text-sm">{s.label}</div>
+                </div>
+              </Scroll3DReveal>
             ))}
           </div>
         </div>

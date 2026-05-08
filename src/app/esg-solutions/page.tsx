@@ -1,5 +1,7 @@
 ﻿import type { Metadata } from 'next'
 import Link from 'next/link'
+import Scroll3DReveal from '@/components/Scroll3DReveal'
+import TiltCard from '@/components/TiltCard'
 
 export const metadata: Metadata = {
   title: 'ESG Solutions — My Green Mark',
@@ -98,7 +100,7 @@ export default function ESGSolutionsPage() {
                     </div>
                   ))}
                 </div>
-                <div className="bg-[#14532D]/50 rounded-xl p-4 text-center">
+                <div className="bg-[#06402B]/50 rounded-xl p-4 text-center">
                   <div className="text-4xl font-extrabold text-[#F4B942]">82</div>
                   <div className="text-white font-semibold text-sm">Overall ESG Score</div>
                   <div className="text-[#A8C5A3] text-xs mt-1">+18 points from last year</div>
@@ -113,12 +115,16 @@ export default function ESGSolutionsPage() {
       <section className="py-12 bg-white border-b border-[#D6E8D2]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {metrics.map((m) => (
-              <div key={m.label} className="text-center stats-card rounded-2xl p-6">
-                <div className="text-3xl mb-2">{m.icon}</div>
-                <div className="text-2xl font-extrabold text-[#14532D] mb-1">{m.value}</div>
-                <div className="text-[#3A8A5C] text-sm">{m.label}</div>
-              </div>
+            {metrics.map((m, i) => (
+              <Scroll3DReveal key={m.label} direction="flip" delay={i * 80}>
+                <TiltCard intensity={8} className="h-full">
+                  <div className="text-center stats-card rounded-2xl p-6 h-full">
+                    <div className="text-3xl mb-2">{m.icon}</div>
+                    <div className="text-2xl font-extrabold text-[#06402B] mb-1">{m.value}</div>
+                    <div className="text-[#3A8A5C] text-sm">{m.label}</div>
+                  </div>
+                </TiltCard>
+              </Scroll3DReveal>
             ))}
           </div>
         </div>
@@ -128,52 +134,64 @@ export default function ESGSolutionsPage() {
       <section className="py-20 bg-[#F7EDE2]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#14532D] mb-4">Our ESG Services</h2>
-            <p className="text-[#14532D] text-lg max-w-2xl mx-auto">From mandatory BRSR compliance to voluntary ESG leadership — we cover the full sustainability spectrum.</p>
+            <Scroll3DReveal direction="up">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#06402B] mb-4">Our ESG Services</h2>
+              <p className="text-[#06402B] text-lg max-w-2xl mx-auto">From mandatory BRSR compliance to voluntary ESG leadership — we cover the full sustainability spectrum.</p>
+            </Scroll3DReveal>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
-            {solutions.map((sol) => (
-              <div key={sol.title} className="service-card p-8">
-                <div className="flex items-start gap-4 mb-5">
-                  <div className="w-14 h-14 bg-[#D6E8D2] rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">{sol.icon}</div>
-                  <div>
-                    <h3 className="font-bold text-[#14532D] text-xl">{sol.title}</h3>
-                    <p className="text-[#3A8A5C] text-xs font-semibold">{sol.subtitle}</p>
+            {solutions.map((sol, i) => (
+              <Scroll3DReveal key={sol.title} direction={i % 2 === 0 ? 'left' : 'right'} delay={i * 80}>
+                <TiltCard intensity={7} className="h-full">
+                  <div className="service-card p-8 h-full">
+                    <div className="flex items-start gap-4 mb-5">
+                      <div className="w-14 h-14 bg-[#D6E8D2] rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">{sol.icon}</div>
+                      <div>
+                        <h3 className="font-bold text-[#06402B] text-xl">{sol.title}</h3>
+                        <p className="text-[#3A8A5C] text-xs font-semibold">{sol.subtitle}</p>
+                      </div>
+                    </div>
+                    <p className="text-[#06402B] text-sm leading-relaxed mb-5">{sol.desc}</p>
+                    <ul className="space-y-2 mb-5">
+                      {sol.features.map((f) => (
+                        <li key={f} className="flex items-center gap-2 text-sm text-[#06402B]">
+                          <svg width="14" height="14" fill="#3A8A5C" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="flex items-center justify-between pt-4 border-t border-[#D6E8D2]">
+                      <span className="font-bold text-[#06402B]">{sol.price}</span>
+                      <Link href="/contact" className="text-sm bg-[#06402B] text-white px-4 py-2 rounded-lg hover:bg-[#06402B] transition-colors">Get Quote</Link>
+                    </div>
                   </div>
-                </div>
-                <p className="text-[#14532D] text-sm leading-relaxed mb-5">{sol.desc}</p>
-                <ul className="space-y-2 mb-5">
-                  {sol.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-sm text-[#14532D]">
-                      <svg width="14" height="14" fill="#3A8A5C" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex items-center justify-between pt-4 border-t border-[#D6E8D2]">
-                  <span className="font-bold text-[#14532D]">{sol.price}</span>
-                  <Link href="/contact" className="text-sm bg-[#14532D] text-white px-4 py-2 rounded-lg hover:bg-[#14532D] transition-colors">Get Quote</Link>
-                </div>
-              </div>
+                </TiltCard>
+              </Scroll3DReveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* BRSR Principles */}
-      <section id="brsr" className="py-20 bg-[#14532D]">
+      <section id="brsr" className="py-20 bg-[#06402B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <span className="inline-block bg-[#F4B942]/20 text-[#F4B942] text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider mb-4">BRSR Framework</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">All 9 BRSR Principles Covered</h2>
-            <p className="text-[#A8C5A3] text-lg max-w-2xl mx-auto">We handle every section of the Business Responsibility & Sustainability Report as mandated by SEBI for top 1000 listed companies.</p>
+            <Scroll3DReveal direction="up">
+              <span className="inline-block bg-[#F4B942]/20 text-[#F4B942] text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider mb-4">BRSR Framework</span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">All 9 BRSR Principles Covered</h2>
+              <p className="text-[#A8C5A3] text-lg max-w-2xl mx-auto">We handle every section of the Business Responsibility & Sustainability Report as mandated by SEBI for top 1000 listed companies.</p>
+            </Scroll3DReveal>
           </div>
           <div className="grid md:grid-cols-3 gap-4">
-            {principles.map((p) => (
-              <div key={p.no} className="bg-white/10 border border-white/15 rounded-xl p-5 flex items-start gap-4">
-                <div className="w-10 h-10 bg-[#F4B942] rounded-xl flex items-center justify-center text-[#14532D] font-extrabold text-sm flex-shrink-0">{p.no}</div>
-                <p className="text-[#D6E8D2] text-sm leading-relaxed">{p.title}</p>
-              </div>
+            {principles.map((p, i) => (
+              <Scroll3DReveal key={p.no} direction="up" delay={i * 80}>
+                <TiltCard intensity={6} className="h-full">
+                  <div className="bg-white/10 border border-white/15 rounded-xl p-5 flex items-start gap-4 h-full">
+                    <div className="w-10 h-10 bg-[#F4B942] rounded-xl flex items-center justify-center text-[#06402B] font-extrabold text-sm flex-shrink-0">{p.no}</div>
+                    <p className="text-[#D6E8D2] text-sm leading-relaxed">{p.title}</p>
+                  </div>
+                </TiltCard>
+              </Scroll3DReveal>
             ))}
           </div>
           <div className="text-center mt-10">

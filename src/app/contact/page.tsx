@@ -11,11 +11,25 @@ const offices = [
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', service: '', message: '' })
-  const [submitted, setSubmitted] = useState(false)
+  const [step, setStep] = useState<'form' | 'success' | 'error'>('form')
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
+    setLoading(true)
+    try {
+      await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      setStep('success')
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } catch {
+      setStep('error')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -35,7 +49,7 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-3 gap-10">
             {/* Form */}
             <div className="lg:col-span-2">
-              {!submitted ? (
+              {step === 'form' && (
                 <Scroll3DReveal direction="left">
                   <div className="bg-white rounded-2xl shadow-lg border border-[#D6E8D2] p-10">
                     <h2 className="text-2xl font-extrabold text-[#06402B] mb-2">Send Us a Message</h2>
@@ -79,18 +93,40 @@ export default function ContactPage() {
                         <label className="text-[#06402B] text-xs font-semibold mb-1.5 block">Your Message *</label>
                         <textarea required rows={4} placeholder="Tell us about your sustainability goals, current challenges, and what you hope to achieve..." value={form.message} onChange={e => setForm({...form, message: e.target.value})} className="w-full border border-[#D6E8D2] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#06402B] text-[#06402B] bg-white resize-none"/>
                       </div>
-                      <button type="submit" className="btn-primary w-full justify-center text-base">Send Message →</button>
+                      <button type="submit" disabled={loading} className="btn-primary w-full justify-center text-base disabled:opacity-60 disabled:cursor-not-allowed">
+                        {loading ? 'Sending…' : 'Send Message →'}
+                      </button>
                       <p className="text-[#3A8A5C] text-xs text-center">We respond within 24 hours · Your data is safe with us</p>
                     </form>
                   </div>
                 </Scroll3DReveal>
-              ) : (
+              )}
+
+              {step === 'success' && (
                 <div className="bg-white rounded-2xl shadow-lg border border-[#D6E8D2] p-10 text-center">
-                  <div className="text-6xl mb-5">✅</div>
+                  <div className="w-20 h-20 bg-[#D6E8D2] rounded-full flex items-center justify-center text-4xl mx-auto mb-6">✅</div>
                   <h2 className="text-2xl font-extrabold text-[#06402B] mb-3">Message Sent!</h2>
-                  <p className="text-[#06402B] mb-2">Thank you, <strong>{form.name}</strong>! We&apos;ve received your message.</p>
-                  <p className="text-[#3A8A5C] text-sm mb-6">Our team will get back to you at <strong>{form.email}</strong> within 24 hours.</p>
-                  <Link href="/" className="btn-forest inline-flex">Back to Home</Link>
+                  <p className="text-[#06402B] mb-2">Thank you, <strong>{form.name}</strong>! We&apos;ve received your enquiry.</p>
+                  <p className="text-[#3A8A5C] text-sm mb-2">Our team will get back to you at <strong>{form.email}</strong> within 24 hours.</p>
+                  {form.service && <p className="text-[#3A8A5C] text-sm mb-8">Topic: <strong className="text-[#06402B]">{form.service}</strong></p>}
+                  <div className="bg-[#F7EDE2] rounded-xl p-5 mb-8 text-left space-y-2 text-sm text-[#06402B]">
+                    <div className="font-bold mb-3">While you wait, you can also reach us directly:</div>
+                    <a href="tel:+919217917695" className="flex items-center gap-2 hover:text-[#3A8A5C] transition-colors">📱 +91 92179 17695</a>
+                    <a href="mailto:info@mygreenmark.in" className="flex items-center gap-2 hover:text-[#3A8A5C] transition-colors">📧 info@mygreenmark.in</a>
+                  </div>
+                  <div className="flex gap-4 justify-center">
+                    <button onClick={() => { setStep('form'); setForm({ name: '', company: '', email: '', phone: '', service: '', message: '' }) }} className="btn-forest inline-flex">Send Another</button>
+                    <Link href="/" className="btn-secondary inline-flex" style={{color:'#06402B', borderColor:'#D6E8D2', background:'#F7EDE2'}}>Back to Home</Link>
+                  </div>
+                </div>
+              )}
+
+              {step === 'error' && (
+                <div className="bg-white rounded-2xl shadow-lg border border-red-100 p-10 text-center">
+                  <div className="text-5xl mb-5">⚠️</div>
+                  <h2 className="text-2xl font-extrabold text-[#06402B] mb-3">Something went wrong</h2>
+                  <p className="text-[#3A8A5C] text-sm mb-6">Please try again or contact us directly at <strong>info@mygreenmark.in</strong> or <strong>+91 92179 17695</strong>.</p>
+                  <button onClick={() => setStep('form')} className="btn-forest inline-flex">Try Again</button>
                 </div>
               )}
             </div>

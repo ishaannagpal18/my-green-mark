@@ -46,7 +46,12 @@ type FormData = {
   parent_name: string
   parent_contact: string
   parent_email: string
+  school_name: string
+  school_city: string
+  school_postal_address: string
+  transaction_id: string
   photo: File | null
+  payment_screenshot: File | null
 }
 
 const emptyForm: FormData = {
@@ -60,7 +65,12 @@ const emptyForm: FormData = {
   parent_name: '',
   parent_contact: '',
   parent_email: '',
+  school_name: '',
+  school_city: '',
+  school_postal_address: '',
+  transaction_id: '',
   photo: null,
+  payment_screenshot: null,
 }
 
 export default function GreenTalentHuntPage() {
@@ -79,13 +89,17 @@ export default function GreenTalentHuntPage() {
         full_name: form.full_name,
         email: form.email,
         class_grade: form.class_grade,
-        city: form.city,
-        postal_address: form.postal_address,
         date_of_birth: form.date_of_birth,
         contact_number: form.contact_number,
+        city: form.city,
+        postal_address: form.postal_address,
+        school_name: form.school_name,
+        school_city: form.school_city,
+        school_postal_address: form.school_postal_address,
         parent_name: form.parent_name,
         parent_contact: form.parent_contact,
         parent_email: form.parent_email,
+        transaction_id_utr: form.transaction_id,
       }
       const res = await fetch('/api/register', {
         method: 'POST',
@@ -94,8 +108,14 @@ export default function GreenTalentHuntPage() {
       })
       if (res.ok) {
         setStep('success')
+        setTimeout(() => {
+          document.getElementById('register')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }, 50)
       } else {
         setStep('error')
+        setTimeout(() => {
+          document.getElementById('register')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }, 50)
       }
     } catch {
       setStep('error')
@@ -295,6 +315,32 @@ export default function GreenTalentHuntPage() {
                         className="w-full border border-[#D6E8D2] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#06402B] text-[#06402B] bg-white resize-none" />
                     </div>
 
+                    {/* School Details */}
+                    <div className="border-t border-[#D6E8D2] pt-4">
+                      <div className="text-[#06402B] text-xs font-bold uppercase tracking-wider mb-3">School Details</div>
+                      <div className="space-y-4">
+                        <div>
+                          <label className="text-[#06402B] text-xs font-semibold mb-1.5 block">Name of the School *</label>
+                          <input required type="text" placeholder="Delhi Public School"
+                            value={form.school_name} onChange={e => set('school_name', e.target.value)}
+                            className="w-full border border-[#D6E8D2] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#06402B] text-[#06402B] bg-white" />
+                        </div>
+                        <div>
+                          <label className="text-[#06402B] text-xs font-semibold mb-1.5 block">School City *</label>
+                          <input required type="text" placeholder="New Delhi"
+                            value={form.school_city} onChange={e => set('school_city', e.target.value)}
+                            className="w-full border border-[#D6E8D2] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#06402B] text-[#06402B] bg-white" />
+                        </div>
+                        <div>
+                          <label className="text-[#06402B] text-xs font-semibold mb-1.5 block">School&apos;s Postal Address *</label>
+                          <textarea required rows={2} placeholder="Full school address with PIN code"
+                            value={form.school_postal_address} onChange={e => set('school_postal_address', e.target.value)}
+                            className="w-full border border-[#D6E8D2] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#06402B] text-[#06402B] bg-white resize-none" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Parent Details */}
                     <div className="border-t border-[#D6E8D2] pt-4">
                       <div className="text-[#06402B] text-xs font-bold uppercase tracking-wider mb-3">Parent / Guardian Details</div>
                       <div className="space-y-4">
@@ -319,26 +365,55 @@ export default function GreenTalentHuntPage() {
                       </div>
                     </div>
 
-                    <div>
-                      <label className="text-[#06402B] text-xs font-semibold mb-1.5 block">Passport Size Photograph *</label>
-                      <label className="flex items-center justify-center gap-3 border-2 border-dashed border-[#D6E8D2] rounded-xl px-4 py-5 cursor-pointer hover:border-[#06402B] transition-colors">
-                        <span className="text-2xl">📷</span>
+                    {/* Uploads */}
+                    <div className="border-t border-[#D6E8D2] pt-4">
+                      <div className="text-[#06402B] text-xs font-bold uppercase tracking-wider mb-3">Uploads & Payment</div>
+                      <div className="space-y-4">
                         <div>
-                          <div className="text-[#06402B] text-sm font-semibold">
-                            {form.photo ? form.photo.name : 'Click to upload photo'}
-                          </div>
-                          <div className="text-[#3A8A5C] text-xs">PDF, JPG, PNG · Max 10 MB</div>
+                          <label className="text-[#06402B] text-xs font-semibold mb-1.5 block">Passport Size Photograph *</label>
+                          <label className="flex items-center gap-3 border-2 border-dashed border-[#D6E8D2] rounded-xl px-4 py-4 cursor-pointer hover:border-[#06402B] transition-colors">
+                            <span className="text-2xl">📷</span>
+                            <div>
+                              <div className="text-[#06402B] text-sm font-semibold">
+                                {form.photo ? form.photo.name : 'Click to upload photo'}
+                              </div>
+                              <div className="text-[#3A8A5C] text-xs">JPG, PNG, PDF · Max 10 MB</div>
+                            </div>
+                            <input type="file" accept="image/*,.pdf" className="hidden"
+                              onChange={e => setForm(prev => ({ ...prev, photo: e.target.files?.[0] ?? null }))} />
+                          </label>
                         </div>
-                        <input type="file" accept="image/*,.pdf" className="hidden"
-                          onChange={e => setForm(prev => ({ ...prev, photo: e.target.files?.[0] ?? null }))} />
-                      </label>
+
+                        <div>
+                          <label className="text-[#06402B] text-xs font-semibold mb-1.5 block">Payment Screenshot *</label>
+                          <label className="flex items-center gap-3 border-2 border-dashed border-[#D6E8D2] rounded-xl px-4 py-4 cursor-pointer hover:border-[#06402B] transition-colors">
+                            <span className="text-2xl">🧾</span>
+                            <div>
+                              <div className="text-[#06402B] text-sm font-semibold">
+                                {form.payment_screenshot ? form.payment_screenshot.name : 'Upload payment screenshot'}
+                              </div>
+                              <div className="text-[#3A8A5C] text-xs">After paying ₹200 via QR · JPG, PNG, PDF · Max 10 MB</div>
+                            </div>
+                            <input type="file" accept="image/*,.pdf" className="hidden"
+                              onChange={e => setForm(prev => ({ ...prev, payment_screenshot: e.target.files?.[0] ?? null }))} />
+                          </label>
+                        </div>
+
+                        <div>
+                          <label className="text-[#06402B] text-xs font-semibold mb-1.5 block">Transaction ID / UTR Number *</label>
+                          <input required type="text" placeholder="e.g. 427819283746"
+                            value={form.transaction_id} onChange={e => set('transaction_id', e.target.value)}
+                            className="w-full border border-[#D6E8D2] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#06402B] text-[#06402B] bg-white font-mono" />
+                          <p className="text-[#3A8A5C] text-xs mt-1">Found in your GPay / PhonePe / Paytm payment confirmation</p>
+                        </div>
+                      </div>
                     </div>
 
                     <button type="submit" disabled={loading}
                       className="btn-primary w-full justify-center text-base disabled:opacity-60 disabled:cursor-not-allowed">
                       {loading ? 'Submitting…' : 'SUBMIT REGISTRATION →'}
                     </button>
-                    <p className="text-[#3A8A5C] text-xs text-center">After submitting, complete payment via QR code on the right</p>
+                    <p className="text-[#3A8A5C] text-xs text-center">Pay ₹200 via QR → upload screenshot → enter UTR → submit</p>
                   </form>
                 </div>
               </Scroll3DReveal>
@@ -351,25 +426,31 @@ export default function GreenTalentHuntPage() {
                       <h3 className="font-bold text-[#06402B] text-xl mb-2">💳 Pay ₹200 via QR</h3>
                       <p className="text-[#3A8A5C] text-sm mb-6">Scan the QR code to complete your ₹200 registration payment</p>
 
-                      <div className="flex justify-center mb-6">
-                        <div className="relative w-56 h-56 rounded-2xl overflow-hidden border-4 border-[#06402B] shadow-lg">
+                      <div className="flex justify-center mb-4">
+                        <div className="relative w-64 h-64 rounded-2xl overflow-hidden border-4 border-[#06402B] shadow-lg bg-white">
                           <Image
-                            src="/qr-green-talent-hunt.png"
-                            alt="Scan to pay ₹200 — Green Talent Hunt Registration"
+                            src="/payment.jpg"
+                            alt="Scan to pay ₹200 — My Green Mark Google Pay QR"
                             fill
-                            className="object-cover"
+                            className="object-contain p-1"
                           />
                         </div>
                       </div>
 
-                      <div className="text-center mb-5">
-                        <div className="text-2xl font-extrabold text-[#06402B]">Scan to Pay ₹200</div>
-                        <div className="text-[#3A8A5C] text-sm mt-1">UPI · GPay · PhonePe · Paytm</div>
+                      <div className="text-center mb-4">
+                        <div className="text-2xl font-extrabold text-[#06402B]">My Green Mark</div>
+                        <div className="text-[#3A8A5C] text-sm mt-0.5">Scan &amp; Pay ₹200</div>
+                      </div>
+
+                      <div className="bg-[#F7EDE2] border border-[#D6E8D2] rounded-xl p-3 text-center mb-4 text-xs text-[#06402B] space-y-1">
+                        <div><span className="font-semibold">UPI ID:</span> 7077706422@okbizaxis</div>
+                        <div><span className="font-semibold">Phone:</span> +91 70777 06422</div>
+                        <div className="text-[#3A8A5C]">GPay · Paytm · PhonePe · BHIM UPI</div>
                       </div>
 
                       <div className="bg-[#D6E8D2] rounded-xl p-4 text-center">
-                        <div className="text-[#06402B] font-semibold text-sm mb-1">📤 After Payment</div>
-                        <div className="text-[#06402B] text-xs">Take a screenshot of the payment confirmation and keep it safe. You may be asked to share it for verification.</div>
+                        <div className="text-[#06402B] font-semibold text-sm mb-1">📤 After Paying</div>
+                        <div className="text-[#06402B] text-xs">Upload the payment screenshot &amp; enter your Transaction ID / UTR Number in the form.</div>
                       </div>
                     </div>
                   </TiltCard>
@@ -416,10 +497,11 @@ export default function GreenTalentHuntPage() {
               <p className="text-[#3A8A5C] text-sm mb-4">Your registration details have been received. A confirmation has been sent to <strong>info@mygreenmark.in</strong>.</p>
               <p className="text-[#3A8A5C] text-sm mb-6">Please complete the ₹200 payment by scanning the QR code and keep your payment screenshot safe.</p>
               <div className="flex justify-center mb-6">
-                <div className="relative w-48 h-48 rounded-xl overflow-hidden border-4 border-[#06402B]">
-                  <Image src="/qr-green-talent-hunt.png" alt="Pay ₹200" fill className="object-cover" />
+                <div className="relative w-56 h-56 rounded-xl overflow-hidden border-4 border-[#06402B] bg-white">
+                  <Image src="/payment.jpg" alt="Pay ₹200 — 7077706422@okbizaxis" fill className="object-contain p-1" />
                 </div>
               </div>
+              <p className="text-[#3A8A5C] text-xs mb-2">UPI ID: <strong className="text-[#06402B]">7077706422@okbizaxis</strong></p>
               <Link href="/" className="btn-forest inline-flex">Back to Home</Link>
             </div>
           )}

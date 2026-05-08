@@ -1,0 +1,80 @@
+import { NextRequest, NextResponse } from 'next/server'
+import nodemailer from 'nodemailer'
+
+export async function POST(req: NextRequest) {
+  const data = await req.json()
+
+  console.log('=== NEW CONTACT FORM SUBMISSION ===')
+  console.log(JSON.stringify(data, null, 2))
+  console.log('===================================')
+
+  if (process.env.SMTP_USER && process.env.SMTP_PASS && process.env.SMTP_PASS !== 'your_16_char_app_password_here') {
+    try {
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        },
+      })
+
+      const html = `
+        <div style="font-family:Arial,sans-serif;max-width:620px;margin:0 auto;border:1px solid #D6E8D2;border-radius:14px;overflow:hidden;">
+          <div style="background:#06402B;padding:24px 32px;">
+            <h2 style="color:#F4B942;margin:0;font-size:22px;">📩 New Contact Form Enquiry</h2>
+            <p style="color:#A8C5A3;margin:6px 0 0;font-size:13px;">mygreenmark.in · ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST</p>
+          </div>
+          <div style="padding:28px 32px;background:#fff;">
+            <table style="width:100%;border-collapse:collapse;font-size:14px;">
+              <tr style="border-bottom:1px solid #F0F0F0;">
+                <td style="padding:10px 8px;color:#3A8A5C;font-weight:600;width:38%;">Name</td>
+                <td style="padding:10px 8px;color:#1A1A1A;">${data.name || '—'}</td>
+              </tr>
+              <tr style="border-bottom:1px solid #F0F0F0;">
+                <td style="padding:10px 8px;color:#3A8A5C;font-weight:600;">Company / Org</td>
+                <td style="padding:10px 8px;color:#1A1A1A;">${data.company || '—'}</td>
+              </tr>
+              <tr style="border-bottom:1px solid #F0F0F0;">
+                <td style="padding:10px 8px;color:#3A8A5C;font-weight:600;">Email</td>
+                <td style="padding:10px 8px;color:#1A1A1A;"><a href="mailto:${data.email}" style="color:#06402B;">${data.email || '—'}</a></td>
+              </tr>
+              <tr style="border-bottom:1px solid #F0F0F0;">
+                <td style="padding:10px 8px;color:#3A8A5C;font-weight:600;">Phone</td>
+                <td style="padding:10px 8px;color:#1A1A1A;">${data.phone || '—'}</td>
+              </tr>
+              <tr style="border-bottom:1px solid #F0F0F0;">
+                <td style="padding:10px 8px;color:#3A8A5C;font-weight:600;">Interested In</td>
+                <td style="padding:10px 8px;color:#1A1A1A;font-weight:600;color:#06402B;">${data.service || '—'}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 8px;color:#3A8A5C;font-weight:600;vertical-align:top;">Message</td>
+                <td style="padding:10px 8px;color:#1A1A1A;line-height:1.6;">${data.message || '—'}</td>
+              </tr>
+            </table>
+          </div>
+          <div style="background:#F7EDE2;padding:16px 32px;text-align:center;">
+            <p style="color:#06402B;font-size:12px;margin:0;font-weight:600;">My Green Mark</p>
+            <p style="color:#06402B;font-size:12px;margin:4px 0 0;">info@mygreenmark.in · +91 92179 17695</p>
+            <p style="color:#06402B;font-size:12px;margin:4px 0 0;">RZ-41/14, Block B, Sadh Nagar, Palam, New Delhi 110045</p>
+          </div>
+        </div>
+      `
+
+      await transporter.sendMail({
+        from: `"My Green Mark Website" <${process.env.SMTP_USER}>`,
+        to: process.env.NOTIFY_EMAIL ?? 'satpalswaroop@gmail.com',
+        replyTo: data.email,
+        subject: `New Enquiry: ${data.service || 'General'} — ${data.name}`,
+        html,
+      })
+
+      console.log('Contact email sent for:', data.name)
+    } catch (err) {
+      console.error('Contact email failed (data logged above):', err)
+    }
+  }
+
+  return NextResponse.json({ success: true })
+}

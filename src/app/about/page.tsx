@@ -1,4 +1,5 @@
 ﻿import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import Scroll3DReveal from '@/components/Scroll3DReveal'
 import TiltCard from '@/components/TiltCard'
@@ -25,10 +26,18 @@ const focusAreas = [
 ]
 
 const team = [
-  { name: 'Arjun Verma', role: 'Founder & CEO', bio: 'Former sustainability consultant with 12 years in ESG advisory. Passionate about using technology to democratize environmental impact.', initials: 'AV', color: '#06402B' },
-  { name: 'Priya Nair', role: 'CTO & Co-Founder', bio: 'Full-stack engineer with a background in geo-spatial technology and blockchain. Built the GPS plantation tracking system from scratch.', initials: 'PN', color: '#06402B' },
-  { name: 'Rahul Gupta', role: 'Head of Carbon Markets', bio: 'Carbon credit specialist with UNFCCC experience. Leads farmer onboarding and corporate carbon offset partnerships.', initials: 'RG', color: '#3A8A5C' },
-  { name: 'Deepa Krishnan', role: 'Head of ESG Consulting', bio: 'Certified BRSR expert and sustainability strategist. Has prepared ESG reports for 100+ listed Indian companies.', initials: 'DK', color: '#06402B' },
+  {
+    name: 'Satpal Swaroop',
+    role: 'Founder',
+    bio: 'MBA graduate from Indian Institute of Management Jammu with nearly 10 years of experience in healthcare, sustainability, operations, and business development, actively promoting ESG awareness and climate action initiatives across India.',
+    photo: '/SatpalSwaroop.jpeg',
+  },
+  {
+    name: 'Deepak Rajendra Sharma',
+    role: 'Co-founder',
+    bio: 'Operations and sustainability professional with an MBA from Indian Institute of Management Jammu and a graduate from Delhi University, experienced in analytics, healthcare, textiles, process optimization, and ESG-driven initiatives, with 3+ years of leadership and volunteering experience across NGOs and NSS.',
+    photo: '/DeepakSharma.jpeg',
+  },
 ]
 
 // Direction helpers for 4-card grids (left, up, right, up cycling)
@@ -139,16 +148,22 @@ export default function AboutPage() {
               <h2 className="text-3xl sm:text-4xl font-extrabold text-[#06402B] mb-4">The People Behind the Platform</h2>
             </Scroll3DReveal>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-7">
+          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
             {team.map((member, i) => (
-              <Scroll3DReveal key={member.name} direction={fourCardDirections[i]} delay={i * 80}>
+              <Scroll3DReveal key={member.name} direction={i === 0 ? 'left' : 'right'} delay={i * 100}>
                 <TiltCard intensity={8} className="h-full">
-                  <div className="service-card p-7 text-center h-full">
-                    <div className="w-20 h-20 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-5" style={{ background: member.color }}>
-                      {member.initials}
+                  <div className="service-card p-8 text-center h-full">
+                    <div className="w-28 h-28 rounded-full overflow-hidden mx-auto mb-5 border-4 border-[#D6E8D2]">
+                      <Image
+                        src={member.photo}
+                        alt={member.name}
+                        width={112}
+                        height={112}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <h3 className="font-bold text-[#06402B] text-lg mb-1">{member.name}</h3>
-                    <p className="text-[#F4B942] text-xs font-semibold mb-3">{member.role}</p>
+                    <p className="text-[#F4B942] text-xs font-semibold mb-3 uppercase tracking-wide">{member.role}</p>
                     <p className="text-[#3A8A5C] text-sm leading-relaxed">{member.bio}</p>
                   </div>
                 </TiltCard>

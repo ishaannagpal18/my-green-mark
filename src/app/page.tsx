@@ -5,6 +5,7 @@ import CarbonExchangeSection from '@/components/CarbonExchangeSection'
 import TestimonialsSection from '@/components/TestimonialsSection'
 import BlogSection from '@/components/BlogSection'
 import ContactCTA from '@/components/ContactCTA'
+import BrochureSection from '@/components/BrochureSection'
 import WaveDivider from '@/components/WaveDivider'
 import Scroll3DReveal from '@/components/Scroll3DReveal'
 import TiltCard from '@/components/TiltCard'
@@ -205,7 +206,12 @@ export default function HomePage() {
       <WaveDivider from="#ffffff" to="#06402B" />
 
       {/* ═══════════════════════════════════════════
-          9. CONTACT CTA
+          9. BROCHURE
+      ═══════════════════════════════════════════ */}
+      <BrochureSection />
+
+      {/* ═══════════════════════════════════════════
+          10. CONTACT CTA
       ═══════════════════════════════════════════ */}
       <ContactCTA />
     </main>

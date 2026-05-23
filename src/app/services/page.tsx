@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import Scroll3DReveal from '@/components/Scroll3DReveal'
 import TiltCard from '@/components/TiltCard'
+import BrochureSection from '@/components/BrochureSection'
 
 export const metadata: Metadata = {
   title: 'Services — My Green Mark',
@@ -236,6 +237,8 @@ export default function ServicesPage() {
           ))}
         </div>
       </section>
+
+      <BrochureSection />
 
       {/* CTA */}
       <section className="py-16 bg-[#06402B]">

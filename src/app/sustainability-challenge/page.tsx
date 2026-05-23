@@ -5,6 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Scroll3DReveal from '@/components/Scroll3DReveal'
 import TiltCard from '@/components/TiltCard'
+import BrochureSection from '@/components/BrochureSection'
+import WaveDivider from '@/components/WaveDivider'
 
 const examHighlights = [
   { icon: '📅', label: 'Exam Date', value: '5 June 2026', sub: 'Friday · World Environment Day' },
@@ -516,6 +518,10 @@ export default function GreenTalentHuntPage() {
           )}
         </div>
       </section>
+
+      <WaveDivider from="#F7EDE2" to="#06402B" />
+      <BrochureSection />
+      <WaveDivider from="#06402B" to="#ffffff" />
 
       {/* FAQs */}
       <section className="py-20 bg-white">

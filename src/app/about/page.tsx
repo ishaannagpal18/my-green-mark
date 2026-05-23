@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Scroll3DReveal from '@/components/Scroll3DReveal'
 import TiltCard from '@/components/TiltCard'
+import BrochureSection from '@/components/BrochureSection'
+import WaveDivider from '@/components/WaveDivider'
 
 export const metadata: Metadata = {
   title: 'About Us — My Green Mark',
@@ -172,6 +174,10 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <WaveDivider from="#ffffff" to="#06402B" />
+      <BrochureSection />
+      <WaveDivider from="#06402B" to="#F4B942" />
 
       {/* CTA */}
       <section className="py-16 bg-[#F4B942]">
